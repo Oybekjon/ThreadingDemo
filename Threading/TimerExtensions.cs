@@ -11,6 +11,9 @@ namespace Threading
         {
             if (timer == null)
                 throw new ArgumentNullException(nameof(timer));
+
+            // Add some additional params, make second param optional
+
         }
     }
 }
