@@ -7,6 +7,11 @@ namespace Threading
 {
     public class ParallelContainer<T>
     {
+        /// <summary>
+        /// soem comment about stuff
+        /// </summary>
+        /// <param name="functions"></param>
+        /// <returns></returns>
         public List<T> RunParallely(List<Func<T>> functions)
         {
             var count = functions.Count;

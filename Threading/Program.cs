@@ -13,15 +13,38 @@ namespace Threading
         public static string Shit { get; set; }
         static void Main(string[] args)
         {
-            var list = new List<string>();
-            new List<Func<string>> {
-                DoFacebook,
-                DoYoutube,
-                DoSlutstagram,
-                DoTwitter
-            }.AsParallel().ForAll(x => list.Add(x()));
+            var t = new Thread(Async);
+            t.Start();
 
             Console.ReadLine();
+            t.Abort();
+            Console.WriteLine("Aborted");
+            Console.ReadLine();
+        }
+
+        private static void Async()
+        {
+            try
+            {
+                var random = new Random();
+                var total = 0L;
+                var count = 0L;
+                var max = 0;
+                for (var i = 0L; i < 10000000; i++)
+                {
+                    total += random.Next(4) == 1 ? 1 : 0;
+                    count++;
+                    var avg = total / (double)count;
+                    var avgText = avg.ToString();
+                    max = Math.Max(avgText.Length, max);
+                    avgText = avgText.PadRight(max + 1);
+                    Console.Write($"\r{avgText} - {i}");
+                }
+            }
+            catch (ThreadAbortException)
+            {
+                Console.WriteLine("Thread aborted");
+            }
         }
 
         private static void Container()
