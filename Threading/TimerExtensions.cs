@@ -7,10 +7,10 @@ namespace Threading
 {
     public static class TimerExtensions
     {
-        public static void Start(this Timer timer)
+        public static void Start(this Timer timer, TimeSpan period)
         {
-            if (timer == null)
-                throw new ArgumentNullException(nameof(timer));
+            Guard.NotNull(timer, nameof(timer));
+            timer.Change(TimeSpan.FromSeconds(0), period);
         }
     }
 }
